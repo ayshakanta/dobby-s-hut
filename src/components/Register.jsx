@@ -1,40 +1,64 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
+  const [registerError, setRegisterError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
-    const photo = e.target.email.value;
+    const photo = e.target.photo.value;
     const password = e.target.password.value;
     console.log(name, email, photo, password);
+
+    setRegisterError("");
+    setSuccess("");
+
+    if (password.length < 6) {
+      toast("Password should be at least 6 characters or longer");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      toast("Password should have at least one uppercase letter.");
+      return;
+    } else if (!/[a-z]/.test(password)) {
+      toast("Password should have at least one lowercase letter.");
+      return;
+    }
 
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
+        updateProfile(result.user, {
+          displayName: name,
+          photoURL: photo,
+        })
+          .then(() => console.log("update profile"))
+          .catch();
+        setSuccess("Welcome to Dobby's Hut!!!", result.user.name);
+        toast("User Created Successfully !!");
       })
+
       .catch((error) => {
         console.error(error);
+        setRegisterError(error.message);
+        toast(error.message);
       });
   };
 
   return (
     <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Register now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-        </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form onSubmit={handleRegister} className="card-body">
+      <div className="mt-5">
+        <h1 className="text-5xl font-bold mb-6">Register now!</h1>
+
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 card-body">
+          <form onSubmit={handleRegister} className="">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -93,7 +117,10 @@ const Register = () => {
               <button className="btn btn-link">Login</button>
             </Link>
           </p>
+          {success && <p>{success}</p>}
+          {registerError && <p>{registerError}</p>}
         </div>
+        <ToastContainer />
       </div>
     </div>
   );
