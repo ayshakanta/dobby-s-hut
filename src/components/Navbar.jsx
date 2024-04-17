@@ -1,6 +1,19 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        console.log("user logged out");
+      })
+      .catch((error) => console.error(error));
+  };
+
   const navLinks = (
     <>
       <li>
@@ -8,6 +21,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to="/register">Register</NavLink>
+      </li>
+      <li>
+        <NavLink to="/update">Update Profile</NavLink>
       </li>
     </>
   );
@@ -46,9 +62,26 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
-          <NavLink to="/login">
-            <button>Login</button>
-          </NavLink>
+          {user ? (
+            <>
+              <div className="tooltip user-profile" data-tip={user.displayName}>
+                <img
+                  className="profile-picture"
+                  src={user.photoURL}
+                  alt={user.displayName}
+                />
+              </div>
+              <button onClick={handleLogout}>LogOut</button>
+            </>
+          ) : (
+            <>
+              <FaUser></FaUser>
+
+              <NavLink to="/login">
+                <button>Login</button>
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
     </div>

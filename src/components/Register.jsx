@@ -4,11 +4,13 @@ import { AuthContext } from "../providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
   const [registerError, setRegisterError] = useState("");
   const [success, setSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ const Register = () => {
         })
           .then(() => console.log("update profile"))
           .catch();
-        setSuccess("Welcome to Dobby's Hut!!!", result.user.name);
+        setSuccess("Welcome to Dobby's Hut!!!", result.user.displayName);
         toast("User Created Successfully !!");
       })
 
@@ -95,17 +97,23 @@ const Register = () => {
                 required
               />
             </div>
-            <div className="form-control">
+            <div className="form-control relative">
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="password"
                 className="input input-bordered"
                 required
               />
+              <span
+                className="absolute top-2/3 right-2"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+              </span>
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary">Register</button>
