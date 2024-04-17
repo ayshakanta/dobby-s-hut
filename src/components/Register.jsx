@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,6 +11,7 @@ const Register = () => {
   const [registerError, setRegisterError] = useState("");
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -45,6 +46,7 @@ const Register = () => {
           .catch();
         setSuccess("Welcome to Dobby's Hut!!!", result.user.displayName);
         toast("User Created Successfully !!");
+        navigate("/");
       })
 
       .catch((error) => {

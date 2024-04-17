@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 const Root = () => {
   return (
-    <div>
+    <div className="platypi">
       <Navbar></Navbar>
       <Outlet></Outlet>
       <Footer></Footer>
