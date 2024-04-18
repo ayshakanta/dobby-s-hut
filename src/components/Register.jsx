@@ -57,9 +57,9 @@ const Register = () => {
   };
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className=" min-h-screen bg-base-200 flex justify-center items-center rounded-2xl mx-10 mt-10 md:mx-24 lg:mx-28">
       <div className="mt-5">
-        <h1 className="text-5xl font-bold mb-6">Register now!</h1>
+        <h1 className="text-3xl text-center font-bold mb-6">Register now!</h1>
 
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 card-body">
           <form onSubmit={handleRegister} className="">
@@ -118,13 +118,13 @@ const Register = () => {
               </span>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Register</button>
+              <button className="btn bg-sky-900 text-white">Register</button>
             </div>
           </form>
           <p>
-            Already have an account ? Please
+            Have an account ? Please
             <Link to="/login">
-              <button className="btn btn-link">Login</button>
+              <button className="btn btn-link text-sky-900">Login</button>
             </Link>
           </p>
           {success && <p>{success}</p>}

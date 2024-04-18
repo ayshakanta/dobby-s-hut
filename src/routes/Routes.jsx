@@ -13,6 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <NotFound></NotFound>,
     children: [
       {
         path: "/",
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
             <ShowProperty></ShowProperty>
           </PrivateRoute>
         ),
+        loader: () => fetch("/resorts.json"),
       },
       {
         path: "/login",
@@ -50,10 +52,6 @@ const router = createBrowserRouter([
             <AboutUs></AboutUs>
           </PrivateRoute>
         ),
-      },
-      {
-        path: "*",
-        element: <NotFound></NotFound>,
       },
     ],
   },

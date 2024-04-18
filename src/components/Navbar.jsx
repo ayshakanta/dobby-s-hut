@@ -37,7 +37,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="mx-10 md:mx-24 lg:mx-28 mt-10 mb-20 ">
+    <div className="mx-5 md:mx-24 lg:mx-28 mt-10 mb-20 ">
       <div className="navbar  py-6 rounded-2xl">
         <div className="navbar-start">
           <div className="dropdown">
@@ -64,11 +64,11 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <div className="text-3xl ">
+          <div className="text-2xl md:text-3xl ">
             <SiHomeassistant />
           </div>
           <Link to="/">
-            <h2 className="ml-3 text-3xl font-extrabold drop-shadow-lg">
+            <h2 className="ml-3 text-xl md:text-3xl font-extrabold drop-shadow-lg text-sky-900">
               Dobby&apos;s Hut
             </h2>
           </Link>
@@ -80,7 +80,7 @@ const Navbar = () => {
           {user ? (
             <>
               <div
-                className="tooltip user-profile mr-4"
+                className="tooltip user-profile mr-2 md:mr-4"
                 data-tip={user.displayName}
               >
                 <img
@@ -89,7 +89,7 @@ const Navbar = () => {
                   alt={user.displayName}
                 />
               </div>
-              <button className="btn" onClick={handleLogout}>
+              <button className="btn text-sky-900" onClick={handleLogout}>
                 LogOut
               </button>
             </>
@@ -100,7 +100,7 @@ const Navbar = () => {
               </div>
 
               <NavLink to="/login">
-                <button className="btn">Login</button>
+                <button className="btn text-sky-900">Login</button>
               </NavLink>
             </>
           )}

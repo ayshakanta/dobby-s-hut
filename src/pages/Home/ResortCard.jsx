@@ -29,7 +29,7 @@ const ResortCard = ({ resort }) => {
 
         <div className="card-actions justify-end">
           <Link to={`/resort/${id}`}>
-            <button className="btn bg-gray-500 text-white drop-shadow-md">
+            <button className="btn bg-sky-900 text-white drop-shadow-md">
               View Property
             </button>
           </Link>
