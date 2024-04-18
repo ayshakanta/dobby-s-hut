@@ -6,6 +6,8 @@ import Register from "../components/Register";
 import UpdateProfile from "../components/UpdateProfile";
 import PrivateRoute from "./PrivateRoute";
 import AboutUs from "../components/AboutUs";
+import ShowProperty from "../pages/Home/ShowProperty";
+import NotFound from "../components/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
         loader: () => fetch("resorts.json"),
+      },
+      {
+        path: "/resort/:id",
+        element: <ShowProperty></ShowProperty>,
       },
       {
         path: "/login",
@@ -40,6 +46,10 @@ const router = createBrowserRouter([
             <AboutUs></AboutUs>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "*",
+        element: <NotFound></NotFound>,
       },
     ],
   },

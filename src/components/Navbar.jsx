@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaUser } from "react-icons/fa";
+import { SiHomeassistant } from "react-icons/si";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -36,8 +37,8 @@ const Navbar = () => {
   );
 
   return (
-    <div className="mx-10 md:mx-24 lg:mx-28">
-      <div className="navbar bg-base-100">
+    <div className="mx-10 md:mx-24 lg:mx-28 mt-10 mb-20 ">
+      <div className="navbar  py-6 rounded-2xl">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -63,7 +64,14 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <h2 className="btn btn-ghost text-xl"> Dobby&apos;s Hut</h2>
+          <div className="text-3xl ">
+            <SiHomeassistant />
+          </div>
+          <Link to="/">
+            <h2 className="ml-3 text-3xl font-extrabold drop-shadow-lg">
+              Dobby&apos;s Hut
+            </h2>
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
@@ -71,21 +79,28 @@ const Navbar = () => {
         <div className="navbar-end">
           {user ? (
             <>
-              <div className="tooltip user-profile" data-tip={user.displayName}>
+              <div
+                className="tooltip user-profile mr-4"
+                data-tip={user.displayName}
+              >
                 <img
-                  className="profile-picture"
+                  className="profile-picture w-12 h-12 rounded-full"
                   src={user.photoURL}
                   alt={user.displayName}
                 />
               </div>
-              <button onClick={handleLogout}>LogOut</button>
+              <button className="btn" onClick={handleLogout}>
+                LogOut
+              </button>
             </>
           ) : (
             <>
-              <FaUser></FaUser>
+              <div className="bg-gray-100 p-4 mr-3 rounded-full">
+                <FaUser></FaUser>
+              </div>
 
               <NavLink to="/login">
-                <button>Login</button>
+                <button className="btn">Login</button>
               </NavLink>
             </>
           )}
