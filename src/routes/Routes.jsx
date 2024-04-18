@@ -17,11 +17,15 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("resorts.json"),
+        loader: () => fetch("/resorts.json"),
       },
       {
         path: "/resort/:id",
-        element: <ShowProperty></ShowProperty>,
+        element: (
+          <PrivateRoute>
+            <ShowProperty></ShowProperty>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",

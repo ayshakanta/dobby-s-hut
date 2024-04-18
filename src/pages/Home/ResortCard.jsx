@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const ResortCard = ({ resort }) => {
   const { image, estate_title, segment_name, status, area, id } = resort;
@@ -39,3 +40,7 @@ const ResortCard = ({ resort }) => {
 };
 
 export default ResortCard;
+
+ResortCard.propTypes = {
+  resort: PropTypes.object,
+};

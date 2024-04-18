@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { signInWithPopup } from "firebase/auth";
 import auth from "../firebase/firebase.config";
@@ -10,6 +10,8 @@ const Login = () => {
   const [loginError, setLoginError] = useState("");
 
   const { signInUser, provider, githubProvider } = useContext(AuthContext);
+
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -24,7 +26,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         e.target.reset();
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         console.error(error);

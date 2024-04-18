@@ -1,5 +1,8 @@
+import { useParams } from "react-router-dom";
+
 const ShowProperty = () => {
-  return <div></div>;
+  const { id } = useParams();
+  return <div>{id}</div>;
 };
 
 export default ShowProperty;
